@@ -43,7 +43,7 @@ def derivative_relu(Z):
 def derivative_tanh(x):
     return (1 - np.power(x, 2))
 
-layer_dims = [X_train.shape[1], 100, 200, Y_train.shape[0]]
+layer_dims = [X_train.shape[1], 20,7, 5, Y_train.shape[0]]
 
 def initialize_parameter(layer_dims):
     L = len(layer_dims) - 1
@@ -65,11 +65,14 @@ def forward_propogation(X,parameters, activation ):
         forward_cache["A"+str(l)] = relu(forward_cache["Z"+str(l)])
 
     forward_cache["Z" + str(L)] = parameters["W" + str(L)].dot(forward_cache["A" + str(L-1)]) + parameters["b"+str(L)]
-    if forward_cache["Z"+str(L)].shape[0] == 0:
+    
+    if forward_cache["Z"+str(L)].shape[0] == 1:
         forward_cache["A"+str(L)] = sigmoid(forward_cache["Z"+str(L)])
     else:
         forward_cache["A"+str(L)] = softmax(forward_cache["Z"+str(L)])
 
+    assert not np.isnan(forward_cache["A" + str(L)]).any(), "NaN detected in forward propagation"
+    
     return forward_cache['A' + str(L)], forward_cache
 
 
@@ -84,7 +87,7 @@ def compute_cost(AL, Y):
     cost = np.squeeze(cost)  ## Returns a single digit. [[7 ]] fun will return 7
     return cost
 
-def backwar_propogation(AL, Y, parameters, forward_cache, activation):
+def backward_propogation(AL, Y, parameters, forward_cache, activation):
     grads = {}
     L = len(parameters)//2
     m = Y.shape[1]
@@ -131,10 +134,10 @@ def Model(X, Y, layer_dims, learning_rate, activation = 'relu', num_iteration = 
     for i in range (0, num_iteration):
         AL, forward_cache =  forward_propogation(X, parameters, activation='relu')
         cost = compute_cost(AL, Y)
-        grads = backwar_propogation(AL, Y, parameters, forward_cache, activation)
+        grads = backward_propogation(AL, Y, parameters, forward_cache, activation)
         parameters = update_parameters(parameters, grads, learning_rate)
 
-        if i % (num_iteration/10) == 0:
+        if i % (num_iteration// 10) == 0:
             print("\niter:{} \t cost: {} \t train_acc:{} \t test_acc:{}".format(i, np.round(cost, 2), predict(X_train, Y_train, parameters, activation), predict(X_test, Y_test, parameters, activation)))
         
         if i % 10 == 0:
