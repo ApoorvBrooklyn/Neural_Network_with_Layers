@@ -43,7 +43,7 @@ def derivative_relu(Z):
 def derivative_tanh(x):
     return (1 - np.power(x, 2))
 
-layer_dims = [X_train.shape[1], 20,7, 5, Y_train.shape[0]]
+# layer_dims = [X_train.shape[1], 20,7, 5, Y_train.shape[0]]
 
 def initialize_parameter(layer_dims):
     L = len(layer_dims) - 1
@@ -147,7 +147,7 @@ def Model(X, Y, layer_dims, learning_rate, activation = 'relu', num_iteration = 
     return parameters 
 
 
-layer_dims = [X_train.shape[0], 20, 7, 5, Y_train.shape[0]]
+layer_dims = [X_train.shape[0], 100, 100,100, Y_train.shape[0]]
 lr = 0.0075
 intr = 1000
 
