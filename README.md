@@ -31,10 +31,33 @@ Ensure you have Python installed along with NumPy. You can install the required 
 pip install numpy 
 ```
 
-###*Running the Model*
+### Running the Model
 
-To train and evaluate the model, simply run the Model.py script:
+To train and evaluate the model, simply run the `Model.py` script:
 
-bash
-
+```bash
 python Model.py
+```
+
+The script will:
+
+- Load the dataset.
+- Initialize the neural network with the specified parameters.
+- Train the model using gradient descent.
+- Evaluate the performance on a validation set.
+
+### Configuration
+
+You can configure the neural network's hyperparameters directly within the `Model.py` script. Parameters such as learning rate, number of layers, and activation functions can be adjusted to experiment with different network setups.
+
+### Results
+
+The trained model achieves an accuracy of over 80% on the provided dataset, demonstrating the effectiveness of a simple neural network even without complex frameworks.
+
+### Visualizations
+
+Refer to the `images/` directory for plots and visualizations of the training process, including loss curves and accuracy graphs.
+
+### Contributing
+
+Contributions are welcome! If you have suggestions for improvements or additional features, feel free to open an issue or submit a pull request.
